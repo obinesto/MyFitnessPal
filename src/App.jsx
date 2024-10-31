@@ -11,7 +11,7 @@ function App() {
   const [workoutType, setWorkoutType] = useState("individual");
   const [muscleGroups, setMuscleGroups] = useState([]);
   const [goal, setGoal] = useState("strength_power");
-  const notify = () => toast("workout formulated!",{
+  const notify = () => toast("workout formulated! Scroll down to check 👇",{
     position: "top-left",
     autoClose: 3000,
     hideProgressBar: false,
