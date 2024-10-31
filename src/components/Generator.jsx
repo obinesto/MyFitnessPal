@@ -19,7 +19,7 @@ function Header(props) {
 }
 
 export default function Generator(props) {
-  const {workoutType, setWorkoutType, muscleGroups, setMuscleGroups, goal, setGoal, updateWorkout} = props;
+  const {workoutType, setWorkoutType, muscleGroups, setMuscleGroups, goal, setGoal, updateWorkout, notify} = props;
   const [showModal, setShowModal] = useState(false);
 
   function toggleModal() {
@@ -164,7 +164,7 @@ export default function Generator(props) {
           );
         })}
       </div>
-      <Button func={updateWorkout} text={"Formulate"}></Button>
+      <Button func={updateWorkout} text={"Formulate"} notify={notify} />
     </SectionWrapper>
   );
 }

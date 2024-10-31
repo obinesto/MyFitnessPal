@@ -1,25 +1,40 @@
-import { useState} from "react";
+import { useState } from "react";
 import Hero from "./components/Hero";
 import Workout from "./components/Workout";
 import Generator from "./components/Generator";
-import { generateWorkout } from './utils/functions'
+import { generateWorkout } from "./utils/functions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [workout, setWorkout] = useState(null)
-  const [workoutType, setWorkoutType] = useState('individual')
-  const [muscleGroups, setMuscleGroups] = useState([])
-  const [goal, setGoal] = useState('strength_power')
+  const [workout, setWorkout] = useState(null);
+  const [workoutType, setWorkoutType] = useState("individual");
+  const [muscleGroups, setMuscleGroups] = useState([]);
+  const [goal, setGoal] = useState("strength_power");
+  const notify = () => toast("workout formulated!",{
+    position: "top-left",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    type: "success",
+  }
+
+  );
 
   function updateWorkout() {
     if (muscleGroups.length < 1) {
-      return
+      return;
     }
-    let newWorkout = generateWorkout({ workoutType, muscleGroups, goal })
+    let newWorkout = generateWorkout({ workoutType, muscleGroups, goal });
     console.log(newWorkout);
-    
-    setWorkout(newWorkout)
 
-    window.location.href = '#workout'
+    setWorkout(newWorkout);
+
+    window.location.href = "#workout";
   }
 
   return (
@@ -36,8 +51,10 @@ function App() {
         goal={goal}
         setGoal={setGoal}
         updateWorkout={updateWorkout}
+        notify={notify}
       />
       {workout && <Workout workout={workout} />}
+      <ToastContainer />
     </main>
   );
 }

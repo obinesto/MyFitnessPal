@@ -1,3 +1,5 @@
+import backgroundVideo from "../assets/6388427-uhd_3840_2160_25fps.mp4";
+
 export default function Hero() {
   return (
     <div className="relative min-h-screen flex flex-col gap-10 items-center justify-center text-center max-w-[800px] w-full mx-auto p-4">
@@ -9,7 +11,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
         <source
-          src="../../public/assets/6388427-uhd_3840_2160_25fps.mp4"
+          src={backgroundVideo}
           type="video/mp4"
         />
       </video>
