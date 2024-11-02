@@ -1,6 +1,38 @@
 import backgroundVideo from "../assets/6388427-uhd_3840_2160_25fps.mp4";
+import { useState, useEffect } from "react";
+import { openDB } from "idb";
 
 export default function Hero() {
+  const [videoSrc, setVideoSrc] = useState(null);
+
+  useEffect(() => {
+    async function fetchVideo() {
+      const db = await openDB("VideoDB", 1, {
+        upgrade(db) {
+          db.createObjectStore("videos");
+        },
+      });
+
+      const cachedVideo = await db.get("videos", "backgroundVideo");
+
+      if (cachedVideo) {
+        const videoURL = URL.createObjectURL(cachedVideo);
+        setVideoSrc(videoURL);
+      } else {
+        fetch(backgroundVideo)
+          .then((response) => response.blob())
+          .then(async (blob) => {
+            await db.put("videos", blob, "backgroundVideo");
+            const videoURL = URL.createObjectURL(blob);
+            setVideoSrc(videoURL);
+          })
+          .catch((error) => console.error("Video caching error:", error));
+      }
+    }
+
+    fetchVideo();
+  }, []);
+
   return (
     <div className="relative min-h-screen flex flex-col gap-10 items-center justify-center text-center max-w-[800px] w-full mx-auto p-4">
       <video
@@ -10,10 +42,7 @@ export default function Hero() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
-        <source
-          src={backgroundVideo}
-          type="video/mp4"
-        />
+        {videoSrc && <source src={videoSrc} type="video/mp4" />}
       </video>
 
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
