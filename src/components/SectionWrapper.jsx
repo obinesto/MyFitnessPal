@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 export default function SectionWrapper(props) {
   const { children, header, title, id } = props;
   return (

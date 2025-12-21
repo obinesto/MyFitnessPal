@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 export default function ExerciseCard(props) {
     const { exercise, i } = props

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import SectionWrapper from './SectionWrapper'
 import ExerciseCard from './ExerciseCard'
 
